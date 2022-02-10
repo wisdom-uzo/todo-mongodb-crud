@@ -30,6 +30,7 @@ export default function Home({todos}) {
                               key={todo._id} 
                               title={todo.title}
                               body={todo.body}
+                              id={todo._id}
                               />
                         )) }
                     </motion.ul>

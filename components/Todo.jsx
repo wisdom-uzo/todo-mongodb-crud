@@ -4,7 +4,7 @@ import { ToggleBtn, ModalBox, ModalContent, ModalContainer } from "./Styles";
 
 
 
-const Todo = ({title, body}) => {
+const Todo = ({title, body, id}) => {
 
  const [show, setShow]= useState(false)
  const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +13,15 @@ const Todo = ({title, body}) => {
 
  const displayModal = () => {
     setShowModal(!showModal);
+  };
+
+
+  const deletePost = async () => {
+    const response = await fetch(`/api/post/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+
   };
  
 
@@ -48,7 +57,9 @@ const Todo = ({title, body}) => {
                                 </motion.button>
                             
                                 <button>Completed</button>
-                                <button className="bg-red-600 text-white py-2 hover:bg-red-500">Delete</button>
+                                <button
+                                onClick={deletePost}
+                                 className="bg-red-600 text-white py-2 hover:bg-red-500">Delete</button>
                             </div>
                     </div>
                     }
