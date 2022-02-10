@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { ToggleBtn, ModalBox, ModalContent, ModalContainer } from "./Styles";
-
+import { useRouter } from 'next/router';
 
 
 const Todo = ({title, body, id}) => {
@@ -16,11 +16,24 @@ const Todo = ({title, body, id}) => {
   };
 
 
-  const deletePost = async () => {
+    const router = useRouter();
+    // Call this function whenever you want to
+    // refresh props!
+    const refreshData = () => {
+      router.replace(router.asPath);
+    }
+
+
+
+  const deletePost = async (req, res) => {
     const response = await fetch(`/api/post/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
+
+    
+      refreshData();
+    
 
   };
  

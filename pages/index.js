@@ -4,7 +4,7 @@ import { connectToDatabase } from '../util/mongodb'
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 
 export default function Home({todos}) {
-    
+    console.log(todos)
   return (
     <div className="">
       <Head>
