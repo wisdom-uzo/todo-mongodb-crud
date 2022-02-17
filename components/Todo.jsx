@@ -2,6 +2,7 @@ import { useState } from "react"
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { ToggleBtn, ModalBox, ModalContent, ModalContainer } from "./Styles";
 import { useRouter } from 'next/router';
+import EditTodo from "./EditTodo";
 
 
 const Todo = ({title, body, id}) => {
@@ -43,7 +44,13 @@ const Todo = ({title, body, id}) => {
     return(
         <div className=" border-b  py-2">
 
-            <Modal showModal={showModal} displayModal={displayModal} />
+            <Modal 
+              showModal={showModal}
+              title={title}
+              id={id} 
+              body={body}
+              displayModal={displayModal}
+             />
 
 
             <motion.li layout onClick={toggleOpen} initial={{ borderRadius: 10 }}>
@@ -87,32 +94,33 @@ export default Todo
 
 
 
-const Modal = ({ showModal, displayModal }) => {
+const Modal = ({ showModal, displayModal, title, body, id }) => {
+  console.log(title)
     return (
         <AnimatePresence>
           {showModal && (
-            <ModalBox
+            <ModalBox className="bg-gray-200 relative z-50 mx-5 rounded shadow border p-5 my-4"
               initial={{ opacity: 0, y: 60, scale: 0.5 }}
               animate={{ opacity: 1, y: 0, scale: 1,
                 transition: { type: "spring", stiffness: 300 }
               }}
               exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.6 } }}>
                   
-              <ModalContent
+              <div
                 initial={{ y: -30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1, transition: { delay: 0.5 } }}>
                                
-                <div>
-                        <motion.button
-                            initial={{ x: -700 }}
-                            animate={{x: 0, transition: { duration: 0.1 }}}
-                            onClick={displayModal}>
-                            Toggle Modal
-                        </motion.button>
+                <div className="bg-red-500 absolute right-0 top-0 rounded text-white p-1">
+                    <motion.button
+                        initial={{ x: -700 }}
+                        animate={{x: 0, transition: { duration: 0.1 }}}
+                        onClick={displayModal}>
+                        close
+                    </motion.button>
                 </div>
                 
-               helllo
-              </ModalContent>
+               <EditTodo editTitle={title} />
+              </div>
             </ModalBox>
           )}
         </AnimatePresence>
