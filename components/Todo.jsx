@@ -3,7 +3,7 @@ import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { ToggleBtn, ModalBox, ModalContent, ModalContainer } from "./Styles";
 import { useRouter } from 'next/router';
 import EditTodo from "./EditTodo";
-
+import { AiFillCaretDown } from "react-icons/ai";
 
 const Todo = ({title, body, id}) => {
 
@@ -57,7 +57,7 @@ const Todo = ({title, body, id}) => {
                 <motion.div className="flex justify-between px-6 ">
                     <h2>{title}</h2>
                     <div className="">
-                        <button onClick={() =>setShow(!show)} className="">✔</button>
+                        <button onClick={() =>setShow(!show)} className=""><AiFillCaretDown/></button>
                     </div>
                 </motion.div>
 
@@ -95,7 +95,7 @@ export default Todo
 
 
 const Modal = ({ showModal, displayModal, title, body, id }) => {
-  console.log(title)
+
     return (
         <AnimatePresence>
           {showModal && (
