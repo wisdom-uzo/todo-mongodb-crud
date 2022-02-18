@@ -61,7 +61,7 @@ const Todo = ({title, body, id}) => {
                     </div>
                 </motion.div>
 
-                <AnimatePresence>
+                <AnimatePresence initial={false}>
                     {isOpen && 
                     <div className="">
                             <p>{body}</p>
@@ -99,7 +99,7 @@ const Modal = ({ showModal, displayModal, title, body, id }) => {
     return (
         <AnimatePresence>
           {showModal && (
-            <ModalBox className="bg-gray-200 relative z-50 mx-5 rounded shadow border p-5 my-4"
+            <ModalBox className="bg-gray-200 relative z-40 mx-5 rounded shadow border p-5 my-4"
               initial={{ opacity: 0, y: 60, scale: 0.5 }}
               animate={{ opacity: 1, y: 0, scale: 1,
                 transition: { type: "spring", stiffness: 300 }

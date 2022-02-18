@@ -3,9 +3,20 @@ import Todo from '../components/Todo';
 import { connectToDatabase } from '../util/mongodb'
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { FiPlusCircle, FiSearch, FiUser } from "react-icons/fi";
+import { useState } from 'react';
+import Modal from '../components/Modal';
 
 export default function Home({todos}) {
-    console.log(todos)
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
+
+
+
+
+
+
   return (
     <div className="">
       <Head>
@@ -14,6 +25,15 @@ export default function Home({todos}) {
       </Head>
 
       <main className="bg-scroll  bg-[url('/img/bg.jpg')] h-screen flex justify-center items-center">
+
+        <AnimatePresence  
+          exitBeforeEnter={true}
+          initial={false}
+          onExitComplete={() => null}>
+            {modalOpen && <Modal modalOpen={modalOpen} handleClose={close} />}
+        </AnimatePresence>
+
+
           <div className="bg-black  text-white w-[40rem] shadow-lg relative">
              <div className="">
                <h1 className='font-bold text-[2rem] font-mono mt-[2rem] ml-[1rem]'>WORK LIST</h1>
@@ -24,6 +44,7 @@ export default function Home({todos}) {
                </div>
 
                <div className="bg-white text-black h-[70vh] overflow-hidden overflow-y-scroll relative">
+                 
                  <AnimateSharedLayout>
                 <AnimateSharedLayout>
                     <motion.ul layout initial={{ borderRadius: 25 }}>
@@ -40,13 +61,19 @@ export default function Home({todos}) {
                 </AnimateSharedLayout>
                </div>
 
-              
-
 
              </div>
               <div className=" absolute bottom-2 text-black bg-white w-[100%] py-2 rounded  flex items-center justify-center gap-5">
                      <FiSearch className='h-9 w-9' />
-                     <FiPlusCircle className='h-12 w-12 '  /> 
+                     <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="save-button"
+                        onClick={() => (modalOpen ? close() : open())}
+                      >
+                        <FiPlusCircle className='h-12 w-12 '  /> 
+                      </motion.button>
+                     
                      <FiUser className='h-9 w-9' />  
                 </div>
           </div>
